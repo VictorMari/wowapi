@@ -12,13 +12,13 @@ env:
 
 jobs:
   download_auctions:
-    name: 'Download auctions'
+    name: 'Auction report pipeline'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
+      - name: 'Install dependencies'
+        run: pip install -r requirements.txt
       - name: 'Download auctions'
-        run: |
-          pip install -r requirements.txt
-          python wowapi.py
+        run: python -u wowapi.py
