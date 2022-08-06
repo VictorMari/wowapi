@@ -13,11 +13,18 @@ class AtlasStore:
         realm = report['realm_id']
         collection = self.db[realm]
         for item_id, auctions in report['auctions'].items():
+            item_document = collection.find_one({'_id': item_id})
+            print("doc", item_document)
+            
+            
+            
+            """
             collection.find_one_and_update(
                 filter={'_id': item_id}, 
                 upsert=True,
                 update={'$addToSet': {'auctions': auctions}}               
             )
+            """
             
          
                 
