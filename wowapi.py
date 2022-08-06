@@ -97,6 +97,8 @@ def main():
             "timestamp": datetime.now().isoformat(),
             "auctions": auctions
         }
+
+        Path("auctioncached").mkdir(parents=True, exist_ok=True)
         with Path(f"auctioncached/{realm_id}.json").open('w+') as f:
             json.dump(report, f, indent=4)
 
