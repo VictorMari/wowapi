@@ -11,20 +11,14 @@ class AtlasStore:
 
     def insert_report(self, report: dict) -> None:
         realm = report['realm_id']
+        auctions = report['auctions']
         collection = self.db[realm]
-        for item_id, auctions in report['auctions'].items():
-            item_document = collection.find_one({'_id': item_id})
-            print("doc", item_document)
-            
-            
-            
-            """
+        for item_id, auctions in auctions.items():
             collection.find_one_and_update(
-                filter={'_id': item_id}, 
+                filter={'_id': item_id},
                 upsert=True,
-                update={'$addToSet': {'auctions': auctions}}               
+                update=[{'$addFields': {'auctions': auctions}}]
             )
-            """
             
          
                 

@@ -14,12 +14,15 @@ def aggregateAuctions(report):
     auction_table = {}
     for auction in report["auctions"]:
         item_id = auction["item"]["id"]
+        auction_id = auction["id"]
         if item_id not in auction_table:
-            auction_table[item_id] = []
+            auction_table[item_id] = {}
         del auction["item"]["id"]
+        del auction["id"]
         if len(auction["item"].keys()) == 0:
             del auction["item"]
-        auction_table[item_id].append(auction)
+
+        auction_table[item_id][auction_id] = auction
 
     return auction_table
 
