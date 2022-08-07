@@ -91,17 +91,24 @@ def main():
     client = WowApi()
     for realm_id in client.get_connected_real_index():
         print(f"getting report for realm {realm_id}")
-        auctions = client.get_auction_report(realm_id)
+        try:
+            auctions = client.get_auction_report(realm_id)
+        except Exception as e:
+            print(f"Failed to retrieve report for realm {realm_id}")
+            continue
+
         report = {
             "realm_id": realm_id,
             "timestamp": datetime.now().isoformat(),
             "auctions": auctions
         }
 
-        Path("auctioncached").mkdir(parents=True, exist_ok=True)
-        with Path(f"auctioncached/{realm_id}.json").open('w+') as f:
-            json.dump(report, f, indent=4)
-
+        try:
+            Path("auctioncached").mkdir(parents=True, exist_ok=True)
+            with Path(f"auctioncached/{realm_id}.json").open('w+') as f:
+                json.dump(report, f, indent=4)
+        except Exception as e:
+            print(f"Failed to write report for realm {realm_id}")
     return 0
 
 
