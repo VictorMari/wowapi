@@ -29,7 +29,7 @@ class AtlasStore:
         print(f"Updated {bulk_results.modified_count} documents")
         print(f"matched_count: {bulk_results.matched_count}")
         print(f"modified_count: {bulk_results.modified_count}")
-        print(f"write erros: {bulk_results.writeErrors}")            
+        #print(f"write erros: {bulk_results.writeErrors}")            
          
                 
 
@@ -47,7 +47,8 @@ def load_auction_reports():
 def main():
     atlas_store = AtlasStore()
     for report in load_auction_reports():
-        atlas_store.insert_report(report)
+        if report['realm_id'] == "1379":
+            atlas_store.insert_report(report)
 
     return 0
 

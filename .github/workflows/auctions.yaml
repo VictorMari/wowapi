@@ -9,6 +9,9 @@ env:
   BASIC_AUTH: ${{ secrets.BASIC_AUTH }}
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_ACCEESS_KEY_SECRET: ${{ secrets.AWS_ACCEESS_KE_SECRET }}
+  MONGO_PWD: ${{ secrets.MONGO_PWD }}
+  MONGO_USER: ${{ secrets.MONGO_USER }}
+
 
 jobs:
   download_auctions:
