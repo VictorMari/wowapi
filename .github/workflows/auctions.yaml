@@ -25,6 +25,8 @@ jobs:
         run: pip install -r requirements.txt
       - name: 'Download auctions'
         run: python -u wowapi.py
+      - name: 'Aggregate auctions'
+        run: python -u auctionAggregator.py
       - name: 'Store auctions'
         run: |
           echo "Store auctions"
