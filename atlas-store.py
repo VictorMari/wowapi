@@ -27,7 +27,9 @@ class AtlasStore:
         bulk_results = collection.bulk_write(bulk_operations)
         print(f"Inserted {bulk_results.upserted_count} documents")
         print(f"Updated {bulk_results.modified_count} documents")
-        print(f"matched_count: {bulk_results.matched_count}")            
+        print(f"matched_count: {bulk_results.matched_count}")
+        print(f"modified_count: {bulk_results.modified_count}")
+        print(f"write erros: {bulk_results.writeErrors}")            
          
                 
 
