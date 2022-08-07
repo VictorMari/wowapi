@@ -3,6 +3,7 @@ import pymongo
 import sys
 import os
 from pathlib import Path
+from pymongo import UpdateOne
 
 class AtlasStore:
     def __init__(self) -> None:
@@ -13,13 +14,20 @@ class AtlasStore:
         realm = report['realm_id']
         auctions = report['auctions']
         collection = self.db[realm]
+        bulk_operations = []
+
         for item_id, auctions in auctions.items():
-            collection.find_one_and_update(
+            operation = UpdateOne(
                 filter={'_id': item_id},
                 upsert=True,
                 update=[{'$addFields': {'auctions': auctions}}]
             )
-            
+            bulk_operations.append(operation)
+
+        bulk_results = collection.bulk_write(bulk_operations)
+        print(f"Inserted {bulk_results.upserted_count} documents")
+        print(f"Updated {bulk_results.modified_count} documents")
+        print(f"matched_count: {bulk_results.matched_count}")            
          
                 
 
