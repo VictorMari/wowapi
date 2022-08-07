@@ -47,8 +47,7 @@ def load_auction_reports():
 def main():
     atlas_store = AtlasStore()
     for report in load_auction_reports():
-        if report['realm_id'] == "1379":
-            atlas_store.insert_report(report)
+        atlas_store.insert_report(report)
 
     return 0
 

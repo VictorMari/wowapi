@@ -90,6 +90,8 @@ class WowApi:
 def main():
     client = WowApi()
     for realm_id in client.get_connected_real_index():
+        if realm_id != "1379":
+            continue
         print(f"getting report for realm {realm_id}")
         try:
             auctions = client.get_auction_report(realm_id)
