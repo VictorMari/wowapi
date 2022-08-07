@@ -32,7 +32,8 @@ jobs:
       - name: 'Archive auctions'
         run: |
           mkdir archives
-          zip -r auctionsArchive.zip AuctionsProcessed
+          now=`date +"%Y-%m-%d:%H:%M"`
+          zip -r auctionsArchive${$now}.zip AuctionsProcessed
           mv *.zip archives
       - name: 'Upload archive' 
         uses: jakejarvis/s3-sync-action@master
