@@ -121,7 +121,9 @@ class WowDataApi:
             print(e)
             if response:
                 print(response.text)
-            print(f"Could not crawl", href)
+            print(f"Retrying", href)
+            time.sleep(30)
+            return self.get_ref_url(href)
             
 
 
@@ -143,8 +145,6 @@ def main():
         for leaderboard in leaderboards['current_leaderboards']:
             href_link = leaderboard['key']['href']
             leaderboard_data = crawler.get_ref_url(href_link)
-            if not leaderboard_data:
-                continue
             # leaderboard metadata
             leaderboard_map_id = leaderboard_data["map"]['id']
             current_period = leaderboard_data["period"]

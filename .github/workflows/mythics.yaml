@@ -25,4 +25,4 @@ jobs:
       - name: Install dependencies
         run: pip install -r mythics/requirements.txt
       - name: Run mythics leaderboard
-        run: python mythics/crawler.py
+        run: python -u mythics/crawler.py
