@@ -106,8 +106,8 @@ class WowDataApi:
             "timeout": 5
         }
 
-        response = requests.request(**req_params)
         try:
+            response = requests.request(**req_params)
             response.raise_for_status()
             return response.json()
 
@@ -118,7 +118,7 @@ class WowDataApi:
         except Exception as e:
             print(e)
             print(response.text)
-            sys.exit(1)
+            print(f"Could not crawl")
 
 
 
@@ -139,7 +139,8 @@ def main():
         for leaderboard in leaderboards['current_leaderboards']:
             href_link = leaderboard['key']['href']
             leaderboard_data = crawler.get_ref_url(href_link)
-
+            if not leaderboard_data:
+                continue
             # leaderboard metadata
             leaderboard_map_id = leaderboard_data["map"]['id']
             current_period = leaderboard_data["period"]
