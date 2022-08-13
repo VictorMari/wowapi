@@ -35,7 +35,7 @@ class AtlasStore:
 
 
 def load_auction_reports():
-    for path in Path("AuctionsProcessed").glob("*.json"):
+    for path in Path("auctions/AuctionsProcessed").glob("*.json"):
         print(f"loading {path}")
         with open(path) as f:
             yield json.load(f)

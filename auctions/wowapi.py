@@ -106,8 +106,8 @@ def main():
         }
 
         try:
-            Path("auctioncached").mkdir(parents=True, exist_ok=True)
-            with Path(f"auctioncached/{realm_id}.json").open('w+') as f:
+            Path("auctions/auctioncached").mkdir(parents=True, exist_ok=True)
+            with Path(f"auctions/auctioncached/{realm_id}.json").open('w+') as f:
                 json.dump(report, f, indent=4)
         except Exception as e:
             print(f"Failed to write report for realm {realm_id}")
