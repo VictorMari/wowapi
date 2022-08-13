@@ -24,7 +24,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: 'Install dependencies'
-        run: pip install -r requirements.txt
+        run: pip install -r auction/requirements.txt
       - name: 'Download auctions'
         run: python -u auctions/wowapi.py
       - name: 'Aggregate auctions'
