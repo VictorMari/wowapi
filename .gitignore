@@ -1,4 +1,4 @@
 venv
 .env
-auctioncached/*
-AuctionsProcessed/*
+auctions/auctioncached/*
+auctions/AuctionsProcessed/*

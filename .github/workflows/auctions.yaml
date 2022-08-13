@@ -26,13 +26,14 @@ jobs:
       - name: 'Install dependencies'
         run: pip install -r requirements.txt
       - name: 'Download auctions'
-        run: python -u wowapi.py
+        run: python -u auctions/wowapi.py
       - name: 'Aggregate auctions'
-        run: python -u auctionAggregator.py
+        run: python -u auctions/auctionAggregator.py
       - name: 'Store auctions'
-        run: python -u atlas-store.py
+        run: python -u auctions/atlas-store.py
       - name: 'Archive auctions'
         run: |
+          cd auctions
           mkdir archives
           now=`date +"%Y-%m-%d:%H:%M"`
           zip -r auctionsArchive${now}.zip AuctionsProcessed
@@ -46,5 +47,5 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: 'eu-west-1'   # optional: defaults to us-east-1
-          SOURCE_DIR: 'archives'      # optional: defaults to entire repository
+          SOURCE_DIR: 'auctions/archives'      # optional: defaults to entire repository
         
