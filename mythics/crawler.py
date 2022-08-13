@@ -106,6 +106,8 @@ class WowDataApi:
             "timeout": 5
         }
 
+
+        response = None
         try:
             response = requests.request(**req_params)
             response.raise_for_status()
