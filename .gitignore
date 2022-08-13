@@ -2,3 +2,4 @@ venv
 .env
 auctions/auctioncached/*
 auctions/AuctionsProcessed/*
+mythics/cache/*
