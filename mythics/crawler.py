@@ -119,8 +119,10 @@ class WowDataApi:
             return self.get_ref_url(href)
         except Exception as e:
             print(e)
-            print(response.text)
-            print(f"Could not crawl")
+            if response:
+                print(response.text)
+            print(f"Could not crawl", href)
+            
 
 
 
