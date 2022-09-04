@@ -21,7 +21,7 @@ class WowDataApi:
         req_params = {
             "url": f"{self.battlenet}/oauth/token",
             "headers": {
-                "Authorization": f"Basic {os.environ['BASIC_AUTH']}"
+                "Authorization": "Basic ZjBlZmY1ODJiYTMwNGQyMjg4MWQ2NjRhYWYwMjI5ZjI6N0g3eFpIT1E2U2l0d3dpU2lzU3RjYnRLQ2R4Um9nQ1k=" #f"Basic {os.environ['BASIC_AUTH']}"
             },
             "data":{
                 'grant_type': 'client_credentials'

@@ -4,3 +4,4 @@ auctions/auctioncached/*
 auctions/AuctionsProcessed/*
 mythics/cache/*
 .DS_Store
+.vscode
