@@ -10,7 +10,8 @@ def load_runs():
 def extract_features(run_data):
     feature_table = []
     for group in run_data["leading_groups"]:
-        members = {f"player-{index}": player["profile"]["id"] for index, player in enumerate(group["members"])} 
+        members = [player["profile"]["id"] for player in group["members"]]
+        
         feature_table.append(members)    
     return feature_table
 
