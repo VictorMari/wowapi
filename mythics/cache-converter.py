@@ -7,6 +7,7 @@ def load_old_cache():
         
 def main():
     new_cache = Path("cache")
+    new_cache.mkdir(exist_ok=True)
     for file in load_old_cache():
         with file.open("r") as f:
             run = json.load(f)
