@@ -132,25 +132,26 @@ def main():
     crawler = WowDataApi()
     crawler.authenticate()
     realms_ids = crawler.get_connected_real_index()
-    print(realms_ids)
     cachePath = Path(f'mythics/cache')
     cachePath.mkdir(parents=True, exist_ok=True)
 
     for realm_id in realms_ids:
-        realm_cache = cachePath.joinpath(f"{realm_id}")
-        realm_cache.mkdir(parents=True, exist_ok=True)
+        print("Getting leaderboard for", realm_id)
         leaderboards = crawler.get_leaderboard_index(realm_id)
         for leaderboard in leaderboards['current_leaderboards']:
-            href_link = leaderboard['key']['href']
-            leaderboard_data = crawler.get_ref_url(href_link)
-            # leaderboard metadata
-            leaderboard_map_id = leaderboard_data["map"]['id']
-            current_period = leaderboard_data["period"]
-            dungeon_cache = realm_cache.joinpath(f"{leaderboard_map_id}")
-            dungeon_cache.mkdir(parents=True, exist_ok=True)
-            leaderboard_store_path = dungeon_cache.joinpath(f"{current_period}.json")
-            with leaderboard_store_path.open('w+') as f:
-                json.dump(leaderboard_data, f, indent=4)
+            dungeon_leaderboard = crawler.get_ref_url(leaderboard["key"]['href'])
+            leaderboard_map_id = leaderboard["id"]
+            current_period = dungeon_leaderboard["period"]
+            leaderboard_name = "_".join([realm_id, str(leaderboard_map_id), str(current_period)])
+            leaderboard_path = cachePath.joinpath(f"{leaderboard_name}.json")
+            print("Saving", leaderboard_path)
+            if leaderboard_path.exists():
+                print("Already exists, skipping")
+                continue
+
+            dungeon_leaderboard["dungeon_id"] = leaderboard_map_id
+            with leaderboard_path.open('w+') as f:
+                json.dump(dungeon_leaderboard, f, indent=4)
 
     return 0
 

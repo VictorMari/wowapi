@@ -2,30 +2,23 @@ import json
 from pathlib import Path
 
 def load_runs():
-    cache = Path(f"mythics/cache")
-    for file_path in cache.glob("*/*/*.json"):
-        with file_path.open("r") as f:
-            yield json.load(f), file_path.parent.parent.name
+    for run in Path("mythics/cache").glob("*.json"):
+        with run.open("r") as f:
+            yield run, json.load(f)
 
-def extract_features(run_data):
-    feature_table = []
-    for group in run_data["leading_groups"]:
-        members = [player["profile"]["id"] for player in group["members"]]
-        
-        feature_table.append(members)    
-    return feature_table
-
-def cache_features(feature_table, run, server_id):
-    Path(f"mythics/features").mkdir(parents=True, exist_ok=True)
-    output_path = Path(f"mythics/features/{server_id}_{run['map']['id']}_{run['period']}.json")
-    with output_path.open("w+") as f:
-        json.dump(feature_table, f, indent=4)
+def extract_player_ids(run_data):
+    runs = []
+    for run in run_data["leading_groups"]:
+        runs.append([player["profile"]["id"] for player in run["members"]])
+    return runs
 
 def main():
-    for run, server_id in load_runs():
-        run_features = extract_features(run)
-
-        cache_features(run_features, run, server_id)
+    for run, data in load_runs():
+        run_features = extract_player_ids(data)
+        with Path("mythics/features", run.name).open("w+") as f:
+            print("saving", run.name)
+            json.dump(run_features, f, indent=4)
+    return 0
 
 if __name__ == "__main__":
     import sys
